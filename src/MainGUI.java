@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainGUI extends JFrame {
     private JPanel mainPanel;
@@ -11,8 +9,6 @@ public class MainGUI extends JFrame {
     private JLabel ageLbl;
     private JLabel printNameAndAgeLbl;
     private JButton showPersonDetailsBtn;
-    private Dimension size;
-    private Toolkit toolkit;
 
     public MainGUI(String title) throws HeadlessException {
         super(title);
@@ -21,19 +17,15 @@ public class MainGUI extends JFrame {
         this.setContentPane(mainPanel);
         this.pack();
         this.setSize(500,300);
-        this.size = new Dimension();
         this.setLocationRelativeTo(null);
 
-        showPersonDetailsBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = nameInput.getText();
-                int age = (int) Integer.parseInt(ageInput.getText());
-                Person addPerson = new Person(name, age);
+        showPersonDetailsBtn.addActionListener(e -> {
+            String name = nameInput.getText();
+            int age = Integer.parseInt(ageInput.getText());
+            Person addPerson = new Person(name, age);
 
-                printNameAndAgeLbl.setText(addPerson.toString());
+            printNameAndAgeLbl.setText(addPerson.toString());
 
-            }
         });
     }
 
