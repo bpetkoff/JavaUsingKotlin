@@ -9,6 +9,15 @@ public class MainGUI extends JFrame {
     private JLabel ageLbl;
     private JLabel printNameAndAgeLbl;
     private JButton showPersonDetailsBtn;
+    private JTextField heightInput;
+    private JLabel weightLable;
+    private JLabel heightLable;
+    private JTextField weightInput;
+    private JLabel emailAddress;
+    private JTextField emailInput;
+    private JLabel heightInInch;
+    private JButton calculateInchesButton;
+    private JLabel heightInInchesResult;
 
     public MainGUI(String title) throws HeadlessException {
         super(title);
@@ -16,16 +25,30 @@ public class MainGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
-        this.setSize(500,300);
+        this.setSize(500,500);
         this.setLocationRelativeTo(null);
 
+
+
         showPersonDetailsBtn.addActionListener(e -> {
-            String name = nameInput.getText();
-            int age = Integer.parseInt(ageInput.getText());
-            Person addPerson = new Person(name, age);
+            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
+                                                                    Integer.parseInt(ageInput.getText()),
+                                                                    Integer.parseInt(heightInput.getText()),
+                                                                    Integer.parseInt(weightInput.getText()),
+                                                                    emailInput.getText());
+            System.out.println(newPerson);
 
-            printNameAndAgeLbl.setText(addPerson.toString());
+            printNameAndAgeLbl.setText(newPerson.toString());
+        });
 
+
+        calculateInchesButton.addActionListener(e -> {
+            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
+                                                                            Integer.parseInt(ageInput.getText()),
+                                                                            Integer.parseInt(heightInput.getText()),
+                                                                            Integer.parseInt(weightInput.getText()),
+                                                                            emailInput.getText());
+            heightInInchesResult.setText(String.valueOf(String.valueOf(PersonHandler.Companion.heightToInches(newPerson))));
         });
     }
 
