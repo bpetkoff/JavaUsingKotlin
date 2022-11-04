@@ -18,9 +18,15 @@ public class MainGUI extends JFrame {
     private JLabel heightInInch;
     private JButton calculateInchesButton;
     private JLabel heightInInchesResult;
+    private JRadioButton dbPersistenceRadioButton;
+    private JRadioButton filePersistenceRadioButton;
+    private ButtonGroup radioButtonsGroup;
 
     public MainGUI(String title) throws HeadlessException {
         super(title);
+        radioButtonsGroup = new ButtonGroup();
+        radioButtonsGroup.add(dbPersistenceRadioButton);
+        radioButtonsGroup.add(filePersistenceRadioButton);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -36,7 +42,11 @@ public class MainGUI extends JFrame {
                                                                     Integer.parseInt(heightInput.getText()),
                                                                     Integer.parseInt(weightInput.getText()),
                                                                     emailInput.getText());
-            System.out.println(newPerson);
+
+            System.out.println(Main.dataBase);
+            System.out.println(newPerson.getUserName());
+            System.out.println(newPerson.getPassword());
+
 
             printNameAndAgeLbl.setText(newPerson.toString());
         });
@@ -48,7 +58,7 @@ public class MainGUI extends JFrame {
                                                                             Integer.parseInt(heightInput.getText()),
                                                                             Integer.parseInt(weightInput.getText()),
                                                                             emailInput.getText());
-            heightInInchesResult.setText(String.valueOf(String.valueOf(PersonHandler.Companion.heightToInches(newPerson))));
+            heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
         });
     }
 
