@@ -20,13 +20,15 @@ public class MainGUI extends JFrame {
     private JLabel heightInInchesResult;
     private JRadioButton dbPersistenceRadioButton;
     private JRadioButton filePersistenceRadioButton;
-    private ButtonGroup radioButtonsGroup;
+    private Person newPerson;
 
     public MainGUI(String title) throws HeadlessException {
         super(title);
-        radioButtonsGroup = new ButtonGroup();
+        ButtonGroup radioButtonsGroup = new ButtonGroup();
         radioButtonsGroup.add(dbPersistenceRadioButton);
         radioButtonsGroup.add(filePersistenceRadioButton);
+
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -36,12 +38,14 @@ public class MainGUI extends JFrame {
 
 
 
+
         showPersonDetailsBtn.addActionListener(e -> {
-            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
+            newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
                                                                     Integer.parseInt(ageInput.getText()),
                                                                     Integer.parseInt(heightInput.getText()),
                                                                     Integer.parseInt(weightInput.getText()),
                                                                     emailInput.getText());
+            var height = Integer.parseInt(heightInput.getText());
 
             System.out.println(Main.dataBase);
             System.out.println(newPerson.getUserName());
@@ -49,17 +53,22 @@ public class MainGUI extends JFrame {
 
 
             printNameAndAgeLbl.setText(newPerson.toString());
-        });
 
 
-        calculateInchesButton.addActionListener(e -> {
-            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
-                                                                            Integer.parseInt(ageInput.getText()),
-                                                                            Integer.parseInt(heightInput.getText()),
-                                                                            Integer.parseInt(weightInput.getText()),
-                                                                            emailInput.getText());
-            heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
         });
+
+        calculateInchesButton.addActionListener(e1 -> {
+                    heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
+        });
+
+//        calculateInchesButton.addActionListener(e -> {
+//            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
+//                                                                            Integer.parseInt(ageInput.getText()),
+//                                                                            Integer.parseInt(heightInput.getText()),
+//                                                                            Integer.parseInt(weightInput.getText()),
+//                                                                            emailInput.getText());
+//            heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
+//        });
     }
 
     private void createUIComponents() {
