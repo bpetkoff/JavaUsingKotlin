@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 public class MainGUI extends JFrame {
@@ -20,12 +22,13 @@ public class MainGUI extends JFrame {
     private JLabel heightInInchesResult;
     private JRadioButton dbPersistenceRadioButton;
     private JRadioButton filePersistenceRadioButton;
-    private JList list1;
+    private JList listMain;
     private JPanel listPanel;
     private JPanel leftPanel;
     private JPanel savePanel;
     private JPanel inputPanel;
     private JPanel inchesPanel;
+    private JButton editButton;
     private Person newPerson;
     private DefaultListModel<String> personListModel;
 
@@ -35,7 +38,7 @@ public class MainGUI extends JFrame {
         radioButtonsGroup.add(dbPersistenceRadioButton);
         radioButtonsGroup.add(filePersistenceRadioButton);
         personListModel = new DefaultListModel<>();
-        list1.setModel(personListModel);
+        listMain.setModel(personListModel);
 
 
 
@@ -49,11 +52,38 @@ public class MainGUI extends JFrame {
 
 
         showPersonDetailsBtn.addActionListener(e -> {
-            newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
-                                                                    Integer.parseInt(ageInput.getText()),
-                                                                    Integer.parseInt(heightInput.getText()),
-                                                                    Integer.parseInt(weightInput.getText()),
-                                                                    emailInput.getText());
+
+            newPerson = PersonHandler.Companion.createPerson();
+            int newPersonIndx = Main.dataBase.size() - 1;
+            String name = nameInput.getText();
+            String age = ageInput.getText();
+            String height = heightInput.getText();
+            String weight = weightInput.getText();
+            String email = emailInput.getText();
+
+            if (!name.equals("")) {
+                Main.dataBase.get(newPersonIndx).setName(name);
+            }
+
+            if (!age.equals("")) {
+                Integer ageInt = Integer.parseInt(age);
+                Main.dataBase.get(newPersonIndx).setAge(ageInt);
+            }
+
+            if (!weight.equals("")) {
+                Integer weightInt = Integer.parseInt(weight);
+                Main.dataBase.get(newPersonIndx).setWeight(weightInt);
+            }
+
+            if (!height.equals("")) {
+                Integer heightInt = Integer.parseInt(height);
+                Main.dataBase.get(newPersonIndx).setHeight(heightInt);
+            }
+
+            if (!email.equals("")) {
+                Main.dataBase.get(newPersonIndx).setEmail(email);
+            }
+
 
             refreshList();
             clearFields();
@@ -63,8 +93,6 @@ public class MainGUI extends JFrame {
             System.out.println(newPerson.getPassword());
 
 
-//            list1.;
-
 
         });
 
@@ -72,14 +100,33 @@ public class MainGUI extends JFrame {
                     heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
         });
 
-//        calculateInchesButton.addActionListener(e -> {
-//            var newPerson =  PersonHandler.Companion.createPerson(nameInput.getText(),
-//                                                                            Integer.parseInt(ageInput.getText()),
-//                                                                            Integer.parseInt(heightInput.getText()),
-//                                                                            Integer.parseInt(weightInput.getText()),
-//                                                                            emailInput.getText());
-//            heightInInchesResult.setText(String.valueOf(PersonHandler.Companion.heightToInches(newPerson)));
-//        });
+
+
+        listMain.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                Integer indx = listMain.getSelectedIndex(); // getSelectedIndex takes the index of the element from the GUI list
+                if (indx >= 0){
+                    System.out.println("This is from the list listener" + Main.dataBase.get(indx));
+//                    set the GUI text fields with the elements from the selected row
+                    nameInput.setText(Main.dataBase.get(indx).getName());
+                    emailInput.setText(Main.dataBase.get(indx).getEmail());
+                    ageInput.setText(String.valueOf(Main.dataBase.get(indx).getAge()));
+                    weightInput.setText(String.valueOf(Main.dataBase.get(indx).getWeight()));
+                    heightInput.setText(String.valueOf(Main.dataBase.get(indx).getHeight()));
+                }
+
+            }
+        });
+        editButton.addActionListener(e2 -> {
+            Integer indx = listMain.getSelectedIndex(); // getSelectedIndex takes the index of the element from the GUI list
+            if (indx >= 0){
+                Main.dataBase.get(indx).setName(nameInput.getText());
+                refreshList();
+
+            }
+        });
     }
 
     private void refreshList(){
@@ -93,6 +140,8 @@ public class MainGUI extends JFrame {
         }
     }
 
+
+//    clear the fields in the list
     private void clearFields(){
         nameInput.setText("");
         emailInput.setText("");

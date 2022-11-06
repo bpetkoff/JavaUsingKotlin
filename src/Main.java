@@ -11,15 +11,16 @@ public class Main {
         newWindow.setVisible(true);
 
 
-
-
+//
+//
 //        PersonHandler person = new PersonHandler();
 //
-//        Person samPerson = person.Companion.createPerson("Sam", 23,180,80,"sam@", 8);
+//        Person samPerson = person.Companion.createPerson("Sam", 8);
 //        dataBase.add(samPerson);
 //        Person paulPerson = person.Companion.createPerson("Paul", 64,164,76,"paul@");
 //        dataBase.add(paulPerson);
-//        Person bozhPerson = person.Companion.createPerson("bozh", 43,180,76,"bozh@", 9);
+//        Person bozhPerson = person.Companion.createPerson("bozh", 23,34,23,"sdf");
+//        bozhPerson.setName("bozhPet");
 //        dataBase.add(bozhPerson);
 //
 //        System.out.println(samPerson);

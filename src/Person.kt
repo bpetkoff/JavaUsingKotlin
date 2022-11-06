@@ -1,7 +1,7 @@
 import java.util.Random as Randy
 
-data class Person (val name: String = "name", val age: Int = 0, val height: Int = 0,
-              val weight: Int = 0, val email: String = "email") {
+data class Person (var name: String = "name", var age: Int = 0, var height: Int = 0,
+              var weight: Int = 0, var email: String = "email") {
 
     var userName: String = ""
     var password: String = ""
@@ -23,8 +23,8 @@ data class Person (val name: String = "name", val age: Int = 0, val height: Int 
 //
 //          }
 
-    constructor(name: String, age: Int, height: Int, weight: Int, email: String, passwordStrength: Int = 0) :
-            this(name, age, height, weight, email){
+    constructor(name: String, passwordStrength: Int = 0) :
+            this(){
 
         for(i in 1..passwordStrength){
             this.password += Randy().nextInt(10)

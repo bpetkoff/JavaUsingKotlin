@@ -8,27 +8,44 @@ class PersonHandler {
 
         }
 
-        fun createPerson(name: String, age: Int, height: Int,
-                         weight: Int, email: String, passwordStrength: Int): Person {
-            Main.dataBase.add(Person(name = name, age = age, height = height,
-                weight = weight, email = email, passwordStrength = passwordStrength))
-            return Person(name = name, age = age, height = height,
-                weight = weight, email = email, passwordStrength = passwordStrength)
+        fun createPerson(age: Int, height: Int, weight: Int, email: String): Person {
+            Main.dataBase.add(Person(age = age, height = height, weight = weight, email = email))
+            return Person(age = age, height = height, weight = weight, email = email)
+
 
         }
-//        fun createPerson(name: String, age: Int, height: Int,
-//                         weight: Int, email: String, password: String): Person {
-//            return Person(name = name, age = age, height = height,
-//                weight = weight, email = email, password = password)
-//
-//        }
-//
-//        fun createPerson(name: String, age: Int, height: Int,
-//                         weight: Int, email: String, password: String, passwordStrenght: Int): Person {
-//            return Person(name = name, age = age, height = height,
-//                weight = weight, email = email, password = password, passwordStrength = passwordStrenght)
-//
-//        }
+
+        fun createPerson(height: Int, weight: Int, email: String): Person {
+            Main.dataBase.add(Person(height = height, weight = weight, email = email))
+            return Person(height = height, weight = weight, email = email)
+
+        }
+
+        fun createPerson(weight: Int, email: String): Person {
+            Main.dataBase.add(Person(weight = weight, email = email))
+            return Person(weight = weight, email = email)
+
+        }
+
+        fun createPerson(email: String): Person {
+            Main.dataBase.add(Person(email = email))
+            return Person(email = email)
+
+        }
+
+
+        fun createPerson() : Person {
+            Main.dataBase.add(Person())
+            return Person()
+
+        }
+
+        fun createPerson(name: String, passwordStrength: Int): Person {
+            Main.dataBase.add(Person(name = name, passwordStrength = passwordStrength))
+            return Person(name = name, passwordStrength = passwordStrength)
+
+        }
+
 
 
         fun Person.heightToInches(): Double {
